@@ -1,0 +1,12 @@
+# Compiled class file
+*.class
+/target/*
+
+# Log files
+*.log
+
+# IDE configuration files
+.idea/*
+.mvn/*
+*.iml
+
