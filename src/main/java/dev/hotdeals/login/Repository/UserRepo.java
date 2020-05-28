@@ -80,7 +80,7 @@ public class UserRepo
         return rowsAffected > 0; // returns false if no rows were affected, aka the insert has failed
     }
 
-    // inserts a new User into the 'user' table
+    // deletes a User from the 'user' table based on the id
     public boolean deleteUser(int id)
     {
         String query = "DELETE FROM user WHERE id = ?";
