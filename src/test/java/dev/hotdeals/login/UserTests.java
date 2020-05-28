@@ -10,6 +10,7 @@ import dev.hotdeals.login.Service.UserService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
@@ -150,6 +151,34 @@ public class UserTests
         public void userServiceLoadsTest()
         {
             assertThat(userService).isNotNull();
+        }
+
+        @Test
+        @Order(1)
+        @DisplayName("hashPassword()")
+        public void userServiceHashPasswordTest()
+        {
+            String password = "lorem ipsum"; // sample password
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); // hashing
+
+            String hashedPassword = userService.hashPassword(password); // hash the password
+
+            assertThat(encoder.matches(password, hashedPassword));
+        }
+
+        @Test
+        @Order(2)
+        @DisplayName("checkPasswordMatch()")
+        public void userServiceCheckPasswordMatchTest()
+        {
+            String password1 = "lorem ipsum";
+            String password2 = "dore mi";
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); // hashing
+
+            password1 = encoder.encode(password1);
+            password2 = encoder.encode(password2);
+
+            assertThat(userService.checkPasswordMatch(password1, password2));
         }
     }
 
