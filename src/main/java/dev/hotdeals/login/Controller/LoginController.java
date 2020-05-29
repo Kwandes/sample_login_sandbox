@@ -26,8 +26,10 @@ public class LoginController
     }
 
     @GetMapping("/login")
-    public String login(HttpServletRequest request)
+    public String login(HttpServletRequest request, Model model)
     {
+        model.addAttribute("loginError", request.getSession().getAttribute("loginError"));
+
         // reset the session
         request.getSession().invalidate();
 
@@ -45,11 +47,13 @@ public class LoginController
         if (user == null || !user.getUsername().equals(wr.getParameter("username"))) // the username on the database side is not case sensitive
         {
             System.out.println("Failed login - Username '" + wr.getParameter("username") + "' not found");
+            request.getSession().setAttribute("loginError", "invalid credentials");
             return "redirect:/login";
         }
         else if (!userService.checkPasswordMatch(password, user.getPassword()) )
         {
             System.out.println("Failed login - User '" + wr.getParameter("username") + "' has inputted wrong password");
+            request.getSession().setAttribute("loginError", "invalid credentials");
             return "redirect:/login";
         }
 
@@ -67,13 +71,14 @@ public class LoginController
     }
 
     @PostMapping("/submitNewAccount")
-    public String submitNewAccount(WebRequest wr)
+    public String submitNewAccount(WebRequest wr, HttpServletRequest request)
     {
         User user = userService.searchByUsername(wr.getParameter("username"));
         String password = wr.getParameter("password");
         if (user != null )
         {
             System.out.println("User " + user.getUsername() + " already exists");
+            request.getSession().setAttribute("loginError", "username is taken");
             return "redirect:/login";
         }
         user = new User();
@@ -93,6 +98,7 @@ public class LoginController
         if (request.getSession().getAttribute("accessLevel") == null)
         {
             System.out.println("Access Denied to user [" + request.getSession().getAttribute("username") + "] due to null access Level");
+            request.getSession().setAttribute("loginError", "invalid access level");
             return "redirect:/login";
         }
 

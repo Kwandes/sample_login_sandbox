@@ -96,6 +96,11 @@ a {
     text-indent: 35px; /* make space for the icon */
 }
 
+/* styling of the login error message */
+#credentialsSection .errorText {
+    color: white;
+}
+
 /* Footer */
 .footer {
     text-align: center;
