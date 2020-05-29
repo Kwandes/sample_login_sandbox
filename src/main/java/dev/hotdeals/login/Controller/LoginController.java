@@ -42,7 +42,7 @@ public class LoginController
     {
         User user = userService.searchByUsername(wr.getParameter("username"));
         String password = wr.getParameter("password");
-        if (user == null)
+        if (user == null || !user.getUsername().equals(wr.getParameter("username"))) // the username on the database side is not case sensitive
         {
             System.out.println("Failed login - Username '" + wr.getParameter("username") + "' not found");
             return "redirect:/login";
@@ -71,7 +71,7 @@ public class LoginController
     {
         User user = userService.searchByUsername(wr.getParameter("username"));
         String password = wr.getParameter("password");
-        if (user != null)
+        if (user != null )
         {
             System.out.println("User " + user.getUsername() + " already exists");
             return "redirect:/login";
