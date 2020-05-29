@@ -37,8 +37,6 @@ public class UserRepo
             userList = template.query(query, userRowMapper); // call the database and assign the results to the userList
         } catch (EmptyResultDataAccessException e)
         {
-            System.out.println("Failed to retrieve data from the database with a query " + query);
-            System.out.println(e);
             userList = new ArrayList<>(); // return an empty arrayList
         }
         return userList;
@@ -55,8 +53,6 @@ public class UserRepo
             user = template.queryForObject(query, userRowMapper, id); // call the database
         } catch (EmptyResultDataAccessException e)
         {
-            System.out.println("Failed to retrieve a user with an id " + id + " from the database with a query " + query);
-            System.out.println(e);
             user = null; // return a null user
         }
         return user;
@@ -73,8 +69,6 @@ public class UserRepo
             rowsAffected = template.update(query, user.getUsername(), user.getPassword(), user.getEmail(), user.getAccessLevel()); // call the database
         } catch (EmptyResultDataAccessException e)
         {
-            System.out.println("Failed to add a user (" + user.toString() + ") to the 'user' table with a query " + query);
-            System.out.println(e);
             rowsAffected = 0;
         }
         return rowsAffected > 0; // returns false if no rows were affected, aka the insert has failed
@@ -91,29 +85,25 @@ public class UserRepo
             rowsAffected = template.update(query, id); // call the database
         } catch (EmptyResultDataAccessException e)
         {
-            System.out.println("Failed to delete a user with an id '" + id + "' in the 'user' table with a query " + query);
-            System.out.println(e);
             rowsAffected = 0;
         }
         return rowsAffected > 0; // returns false if no rows were affected, aka the insert has failed
     }
 
     // retrieve all rows from the 'user' table based on the username
-    public List<User> searchByUsername(String username)
+    public User searchByUsername(String username)
     {
-        String query = "SELECT * FROM user WHERE username LIKE CONCAT('%', ?,'%')";
+        String query = "SELECT * FROM user WHERE username = ?";
         RowMapper<User> userRowMapper = new BeanPropertyRowMapper<>(User.class); // a collection type that holds the results of the query
-        List<User> userList; // list of users that will be returned
+        User user; // list of users that will be returned
         try
         {
-            userList = template.query(query, userRowMapper, username); // call the database and assign the results to the userList
+            user = template.queryForObject(query, userRowMapper, username); // call the database and assign the results to the userList
         } catch (EmptyResultDataAccessException e)
         {
-            System.out.println("Failed to retrieve data from the database with a query " + query);
-            System.out.println(e);
-            userList = new ArrayList<>(); // return an empty arrayList
+            user = null; // return null
         }
-        return userList;
+        return user;
     }
 
 }

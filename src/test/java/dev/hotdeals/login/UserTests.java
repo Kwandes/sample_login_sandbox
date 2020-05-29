@@ -42,11 +42,11 @@ public class UserTests
         @DisplayName("searchByUsername()")
         public void userRepoSearchByModelTest() throws Exception
         {
-            List<User> userList = userRepo.searchByUsername("");
+            User user = userRepo.searchByUsername("testUser"); // relies on sample data. Should be replaced with non-dependant solution
 
             testVerification = false; // if the list is empty, testVerification will be false ( test has failed ) else, it will be true
 
-            assertThat(userList).isNotEmpty();
+            assertThat(user).isNotNull();
             testVerification = true; // this will only be reached if the assert is successful
         }
 
@@ -77,7 +77,7 @@ public class UserTests
 
             // when
             queryResult = userRepo.addUser(user);
-            foundUser = userRepo.searchByUsername(user.getUsername()).get(0); // retrieve first result from the database
+            foundUser = userRepo.searchByUsername(user.getUsername()); // retrieve first result from the database
 
             // then
             assertThat(queryResult).isTrue(); // check if the query was successful
@@ -103,17 +103,16 @@ public class UserTests
             }
 
             // If the Add has passed, we can delete the result
-            User user = userRepo.searchByUsername("testUsername").get(0); // get the added user
-            List<User> userList;
+            User user = userRepo.searchByUsername("testUsername"); // get the added user
             boolean queryResult;
 
             // when
            queryResult = userRepo.deleteUser(user.getId());
-            userList = userRepo.searchByUsername("testUsername"); // search for the now-deleted user still exists in the database
+           user = userRepo.searchByUsername("testUsername"); // search for the now-deleted user still exists in the database
 
             // then
             assertThat(queryResult).isTrue(); // check if the query was successful
-            assertThat(userList).isEmpty(); // validate if the user wa not found (because of being deleted)
+            assertThat(user).isNull(); // validate if the user wa not found (because of being deleted)
         }
 
         @Test

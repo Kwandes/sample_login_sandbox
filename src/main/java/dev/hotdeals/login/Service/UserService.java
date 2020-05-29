@@ -67,7 +67,7 @@ public class UserService
     }
 
     // retrieve all rows from the 'user' table based on the username
-    public List<User> searchByUsername(String username)
+    public User searchByUsername(String username)
     {
         return userRepo.searchByUsername(username);
     }
