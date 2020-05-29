@@ -18,6 +18,10 @@ a {
     text-decoration: none;
 }
 
+:focus { /* remove an outline on focusing of an element */
+    outline: none;
+}
+
 #content {
     /* Align the content in the center of the page horizontally and vertically */
     display: flex;
