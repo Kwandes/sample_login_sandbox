@@ -2,7 +2,7 @@ html, body {
     /* Background */
     background: #46abe3; /* fallback for browsers that don't support gradients */
     background: url('../img/swirl_pattern.png'); /* fallback for browsers that don't support gradients */
-    background: url('../img/swirl_pattern.png'), linear-gradient(#46abe3, #1a72d6); /* Page background */
+    background: url('../img/swirl_pattern.png'), linear-gradient(#54c5f7, #006ce7); /* Page background */
 
     /* document-wide styling */
     font-family:  FontAwesome, sans-serif;
@@ -78,7 +78,7 @@ a {
 
 #credentialsSection button:hover {
     background: #1a72d6;
-    background: linear-gradient(270deg, #46abe3, #1a72d6);
+    background: linear-gradient(270deg, #54c5f7, #006ce7);
     cursor: pointer;
 }
 
