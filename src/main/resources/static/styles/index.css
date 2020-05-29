@@ -29,6 +29,12 @@ a {
     margin: 0 auto -50px; /* height of the footer */
 }
 
+.logo {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
 #credentialsSection {
     text-align: center;
 }
