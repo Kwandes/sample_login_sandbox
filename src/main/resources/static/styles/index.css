@@ -1,0 +1,38 @@
+html, body {
+    /* Background */
+    background: #46abe3; /* fallback for browsers that don't support gradients */
+    background: url('../img/swirl_pattern.png'); /* fallback for browsers that don't support gradients */
+    background: url('../img/swirl_pattern.png'), linear-gradient(#46abe3, 	#1a72d6) ; /* Page background */
+
+    /* document-wide styling */
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    color: white;
+}
+
+a {
+    /* Remove hyperlink decoration */
+    color: white;
+    text-decoration: none;
+}
+
+#content {
+    /* Align the content in the center of the page horizontally and vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Make the content span the entire height of the page and account for the footer */
+    min-height: 100%;
+    margin: 0 auto -50px; /* height of the footer */
+}
+
+#credentialsSection {
+    text-align: center;
+}
+
+.footer {
+    text-align: center;
+    height: 50px;
+}

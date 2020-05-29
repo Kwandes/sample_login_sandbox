@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- Thymeleaf is a template engine which ties frontend and backend -->
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Account</title>
+    <link th:href="@{/styles/index.css}" rel="stylesheet">
+</head>
+<body>
+    <div id="content">
+        <div id="contentWrapper">
+            <div id="credentialsSection">
+                <h1>John Doe</h1>
+                <form action="/submitNewAccount" method="post">
+                    <input type="text" id="email" name="email" placeholder="email"><br>
+                    <input type="text" id="username" name="username" placeholder="username"><br>
+                    <input type="text" id="password" name="password" placeholder="password"><br>
+                    <button type="submit">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footerSection">
+            <a href="/login">Sign in-></a>
+        </div>
+    </footer>
+
+</body>
+</html>
