@@ -4,9 +4,14 @@
 
 package dev.hotdeals.login.Controller;
 
+import dev.hotdeals.login.Model.User;
+import dev.hotdeals.login.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.context.request.WebRequest;
 
 @Controller
 public class LoginController
@@ -24,11 +29,26 @@ public class LoginController
         return "login/login";   // page to be opened when this mapping is called
     }
 
+    @Autowired
+    UserService userService;
+
     @PostMapping("/submitLogin") // url mappings that this method handles, POST method only
-    public String submitLogin()
+    public String submitLogin(WebRequest wr, Model model)
     {
-        // validate login credentials
-        // if true, start new session
+        User user = userService.searchByUsername(wr.getParameter("username"));
+        String password = wr.getParameter("password");
+        if (user == null)
+        {
+            System.out.println("Username not found");
+            return "redirect:/login";
+        }
+        else if (!userService.checkPasswordMatch(password, user.getPassword()) )
+        {
+            System.out.println("User password is invalid");
+            return "redirect:/login";
+        }
+        System.out.println("Credentials are ok");
+        // start new session
         return "redirect:/successPage";
     }
 
