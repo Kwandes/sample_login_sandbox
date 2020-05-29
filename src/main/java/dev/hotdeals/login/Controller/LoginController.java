@@ -59,9 +59,22 @@ public class LoginController
     }
 
     @PostMapping("/submitNewAccount")
-    public String submitNewAccount()
+    public String submitNewAccount(WebRequest wr)
     {
-        // add a new account
+        User user = userService.searchByUsername(wr.getParameter("username"));
+        String password = wr.getParameter("password");
+        if (user != null)
+        {
+            System.out.println("User " + user.getUsername() + " already exists");
+            return "redirect:/login";
+        }
+        user = new User();
+        user.setUsername(wr.getParameter("username"));
+        user.setPassword(userService.hashPassword(wr.getParameter("password")));
+        user.setEmail(wr.getParameter("email"));
+        System.out.println("Adding new user (" + user + ")");
+        userService.addUser(user);
+
         return "login/login";
     }
 
