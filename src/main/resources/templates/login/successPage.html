@@ -9,7 +9,12 @@
 <body>
     <div id="content">
         <div id="contentWrapper">
-            <h1>Login Successful</h1>
+            <div id="credentialsSection">
+                <h1>Login Successful</h1>
+                <h2 th:text="'Username: ' + ${username}"></h2>
+                <h2 th:text="'Email: ' + ${email}"></h2>
+                <h2 th:text="'Access Level: ' + ${accessLevel}"></h2>
+            </div>
         </div>
     </div>
 

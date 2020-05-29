@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class LoginController
 {
@@ -24,8 +26,11 @@ public class LoginController
     }
 
     @GetMapping("/login")
-    public String login()
+    public String login(HttpServletRequest request)
     {
+        // reset the session
+        request.getSession().invalidate();
+
         return "login/login";   // page to be opened when this mapping is called
     }
 
@@ -33,22 +38,25 @@ public class LoginController
     UserService userService;
 
     @PostMapping("/submitLogin") // url mappings that this method handles, POST method only
-    public String submitLogin(WebRequest wr, Model model)
+    public String submitLogin(WebRequest wr, Model model, HttpServletRequest request)
     {
         User user = userService.searchByUsername(wr.getParameter("username"));
         String password = wr.getParameter("password");
         if (user == null)
         {
-            System.out.println("Username not found");
+            System.out.println("Failed login - Username '" + wr.getParameter("username") + "' not found");
             return "redirect:/login";
         }
         else if (!userService.checkPasswordMatch(password, user.getPassword()) )
         {
-            System.out.println("User password is invalid");
+            System.out.println("Failed login - User '" + wr.getParameter("username") + "' has inputted wrong password");
             return "redirect:/login";
         }
-        System.out.println("Credentials are ok");
-        // start new session
+
+        // start the session
+        request.getSession().setAttribute("username", user.getUsername());
+        request.getSession().setAttribute("email", user.getEmail());
+        request.getSession().setAttribute("accessLevel", user.getAccessLevel());
         return "redirect:/successPage";
     }
 
@@ -79,15 +87,30 @@ public class LoginController
     }
 
     @GetMapping("/successPage")
-    public String successPage()
+    public String successPage(HttpServletRequest request, Model model)
     {
+        // check if given user has access to this page
+        if (request.getSession().getAttribute("accessLevel") == null)
+        {
+            System.out.println("Access Denied to user [" + request.getSession().getAttribute("username") + "] due to null access Level");
+            return "redirect:/login";
+        }
+
+        // log successful login
+        System.out.println("New login as " + request.getSession().getAttribute("username"));
+        model.addAttribute("username", request.getSession().getAttribute("username"));
+        model.addAttribute("email", request.getSession().getAttribute("email"));
+        model.addAttribute("accessLevel", request.getSession().getAttribute("accessLevel"));
+
         return "login/successPage";
     }
 
     @GetMapping("/logout")
-    public String logout()
+    public String logout(HttpServletRequest request)
     {
         // end the session
+        System.out.println(request.getSession().getAttribute("username") + " has logged out");
+        request.getSession().invalidate();
         return "redirect:/login";
     }
 }
