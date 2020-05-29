@@ -4,16 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <script src="https://use.fontawesome.com/9d779ee93e.js"></script>
     <link th:href="@{/styles/index.css}" rel="stylesheet">
 </head>
 <body>
     <div id="content">
         <div id="contentWrapper">
             <div id="credentialsSection">
-                <h1>John Doe</h1>
+                <h2>John Doe</h2>
                 <form action="/submitLogin" method="post">
-                    <input type="text" id="username" name="username" placeholder="username" maxlength="30" required><br>
-                    <input type="password" id="password" name="password" placeholder="password" maxlength="60" required><br>
+                    <input type="text" id="username" name="username" placeholder="username" maxlength="30" required><i class="fa fa-user-o" aria-hidden="true"></i><br>
+                    <input type="password" id="password" name="password" placeholder="password" maxlength="60" required><i class="fa fa-shield" aria-hidden="true"></i><br>
                     <button type="submit">Login</button>
                 </form>
             </div>
@@ -22,7 +23,7 @@
 
     <footer class="footer">
         <div class="footerSection">
-            <a href="/createNewAccount">Create new account-></a>
+            <a href="/createNewAccount">Create new account <i class="fa fa-long-arrow-right" aria-hidden="true"></i></i></a>
         </div>
     </footer>
 

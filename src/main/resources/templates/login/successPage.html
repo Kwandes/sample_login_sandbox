@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Successful</title>
+    <script src="https://use.fontawesome.com/9d779ee93e.js"></script>
     <link th:href="@{/styles/index.css}" rel="stylesheet">
 </head>
 <body>
     <div id="content">
         <div id="contentWrapper">
             <div id="credentialsSection">
-                <h1>Login Successful</h1>
+                <h2>Login Successful</h2>
                 <h2 th:text="'Username: ' + ${username}"></h2>
                 <h2 th:text="'Email: ' + ${email}"></h2>
                 <h2 th:text="'Access Level: ' + ${accessLevel}"></h2>
@@ -20,7 +21,7 @@
 
     <footer class="footer">
         <div class="footerSection">
-            <a href="/logout">Logout-></a>
+            <a href="/logout">Logout <i class="fa fa-long-arrow-right" aria-hidden="true"></i></i></a>
         </div>
     </footer>
 

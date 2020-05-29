@@ -2,9 +2,10 @@ html, body {
     /* Background */
     background: #46abe3; /* fallback for browsers that don't support gradients */
     background: url('../img/swirl_pattern.png'); /* fallback for browsers that don't support gradients */
-    background: url('../img/swirl_pattern.png'), linear-gradient(#46abe3, 	#1a72d6) ; /* Page background */
+    background: url('../img/swirl_pattern.png'), linear-gradient(#46abe3, #1a72d6); /* Page background */
 
     /* document-wide styling */
+    font-family:  FontAwesome, sans-serif;
     align-items: center;
     height: 100%;
     margin: 0;
@@ -31,6 +32,43 @@ a {
 #credentialsSection {
     text-align: center;
 }
+
+/* adjust styling for the credentials section */
+#credentialsSection input {
+    background: white;
+    border-color: #cccccc;
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 0;
+    font-size: 16px;
+    padding: 5px;
+
+    margin: 4px;
+}
+
+#credentialsSection input::placeholder { /* has to be targeted specifically */
+    color: #d5d5d5
+}
+
+#credentialsSection button {
+    background: #333333;
+    color: white;
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 0;
+    font-size: 16px;
+    padding: 5px;
+    margin: 4px;
+
+    width: 100%;
+}
+
+#credentialsSection button:hover {
+    background: #1a72d6;
+    background: linear-gradient(270deg, #46abe3, #1a72d6);
+    cursor: pointer;
+}
+
 
 .footer {
     text-align: center;
