@@ -37,6 +37,8 @@ a {
 
 #credentialsSection {
     text-align: center;
+    width: 300px;
+    margin-bottom: 100px; /* move the entire section up */
 }
 
 /* adjust styling for the credentials section */
@@ -49,6 +51,7 @@ a {
     font-size: 16px;
     padding: 5px;
 
+    width: 290px; /* section width minus padding */
     margin: 4px;
 }
 
@@ -66,7 +69,7 @@ a {
     padding: 5px;
     margin: 4px;
 
-    width: 100%;
+    width: 300px; /* button width works different from the input, includes the padding within the limit */
 }
 
 #credentialsSection button:hover {
@@ -75,7 +78,21 @@ a {
     cursor: pointer;
 }
 
+/* Move the icons in the input field */
+#credentialsSection i {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 20px;
+    z-index: 1; /* move the icon to the front of the input */
+    color: #d5d5d5 /* set them to match the input placeholder color */
+}
 
+#credentialsSection input {
+    position: relative;
+    text-indent: 35px; /* make space for the icon */
+}
+
+/* Footer */
 .footer {
     text-align: center;
     height: 50px;
